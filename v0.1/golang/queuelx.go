@@ -29,25 +29,8 @@ type Queue struct {
 	cancelCallback *context.CancelFunc
 }
 
-const (
-	colonDelimiter = ":"
-	dayInSeconds   = 86400
-	expCache       = "EX"
-	getCache       = "GET"
-	headSentinel   = "head_sentinel"
-	incrCache      = "INCR"
-	mgetCache      = "MGET"
-	okCache        = "OK"
-	sentinelValue  = "sentinel_value"
-	setCache       = "SET"
-	tailSentinel   = "tail_sentinel"
-)
-
 var (
-	errRequestFailedToResolve = errors.New("request failed to resolve instructions")
-	errInvalidDelayProvided   = errors.New("delay of less than or equal to zero provided")
-	errNilQueuePayload        = errors.New("nil queue payload")
-	errSentinelsNotReturned   = errors.New("sentinels were not returned")
+	errInvalidDelayProvided = errors.New("delay of less than or equal to zero provided")
 )
 
 func (q *Queue) Enqueue(queuePayload *QueuePayload) (bool, error) {

@@ -3,9 +3,9 @@ package queuelx
 import (
 	"context"
 	"fmt"
-
 	"testing"
 	"time"
+	"os"
 
 	sclx "github.com/herebythere/supercachelx/v0.1/golang"
 )
@@ -15,8 +15,8 @@ const (
 )
 
 var (
-	// localCacheAddress = os.Getenv("LOCAL_CACHE_ADDRESS")
-	localCacheAddress = "http://10.88.0.1:6050"
+	localCacheAddress = os.Getenv("LOCAL_CACHE_ADDRESS")
+	// localCacheAddress = "http://10.88.0.1:1234"
 
 	testIdentifier   = "test_queue_local"
 	testQueuePayload = QueuePayload{
@@ -165,9 +165,3 @@ func TestQueueCallbackIncrementsWithDelay(t *testing.T) {
 		t.Logf(fmt.Sprint("callback count was: ", callbackCount))
 	}
 }
-
-// hello helloi
-
-// create a queue with an identifier and callback log
-
-// start the queue

@@ -2,10 +2,31 @@ package queuelx
 
 import (
 	"encoding/json"
+	"errors"
 	"strconv"
 	"strings"
 
 	sclx "github.com/herebythere/supercachelx/v0.1/golang"
+)
+
+const (
+	colonDelimiter = ":"
+	dayInSeconds   = 86400
+	expCache       = "EX"
+	getCache       = "GET"
+	headSentinel   = "head_sentinel"
+	incrCache      = "INCR"
+	mgetCache      = "MGET"
+	okCache        = "OK"
+	sentinelValue  = "sentinel_value"
+	setCache       = "SET"
+	tailSentinel   = "tail_sentinel"
+)
+
+var (
+	errNilQueuePayload        = errors.New("nil queue payload")
+	errRequestFailedToResolve = errors.New("request failed to resolve instructions")
+	errSentinelsNotReturned   = errors.New("sentinels were not returned")
 )
 
 func getCacheSetID(categories ...string) string {
