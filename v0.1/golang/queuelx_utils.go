@@ -83,7 +83,7 @@ func setQueuePayload(
 		return errQueuePayloadBytes
 	}
 
-	setID := getCacheSetID(testIdentifier, sentinelValue)
+	setID := getCacheSetID(identifier, sentinelValue)
 	queuePayloadStr := string(queuePayloadBytes)
 	instructions := []interface{}{
 		setCache,
@@ -120,7 +120,7 @@ func getQueuePayload(
 		return nil, err
 	}
 
-	setID := getCacheSetID(testIdentifier, sentinelValue)
+	setID := getCacheSetID(identifier, sentinelValue)
 
 	instructions := []interface{}{getCache, setID}
 	qPayloadBase64, errQPayloadBase64 := sclx.ExecInstructionsAndParseBase64(

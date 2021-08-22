@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"testing"
 	"time"
-	"os"
+	// "os"
 
 	sclx "github.com/herebythere/supercachelx/v0.1/golang"
 )
@@ -15,8 +15,8 @@ const (
 )
 
 var (
-	localCacheAddress = os.Getenv("LOCAL_CACHE_ADDRESS")
-	// localCacheAddress = "http://10.88.0.1:1234"
+	// localCacheAddress = os.Getenv("LOCAL_CACHE_ADDRESS")
+	localCacheAddress = "http://10.88.0.1:6050"
 
 	testIdentifier   = "test_queue_local"
 	testQueuePayload = QueuePayload{
