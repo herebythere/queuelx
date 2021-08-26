@@ -42,6 +42,29 @@ func resetHeadAndTailSentinels() {
 	)
 }
 
+func TestNewQueue(t *testing.T) {
+	var queueCallback QueueCallback
+	queueCallback = func(
+		payload *QueuePayload,
+		cancelCallback *context.CancelFunc,
+		err error,
+	) error {
+		return nil
+	}
+
+	queue := NewQueue(
+		localCacheAddress,
+		testIdentifier,
+		2*1000000,
+		&queueCallback,
+	)
+
+	if queue == nil {
+		t.Fail()
+		t.Logf("queue should not be nil")
+	}
+}
+
 func TestQueueCallbackDoesNotIncrement(t *testing.T) {
 	resetHeadAndTailSentinels()
 
@@ -58,13 +81,12 @@ func TestQueueCallbackDoesNotIncrement(t *testing.T) {
 		return nil
 	}
 
-	queue := Queue{
-		cacheAddress:   localCacheAddress,
-		identifier:     testIdentifier,
-		delay:          2 * int64(time.Second),
-		callback:       &queueCallback,
-		cancelCallback: nil,
-	}
+	queue := NewQueue(
+		localCacheAddress,
+		testIdentifier,
+		2*int64(time.Second),
+		&queueCallback,
+	)
 
 	go queue.Run()
 	time.Sleep(1 * time.Second)
@@ -92,13 +114,12 @@ func TestQueueCallbackIncrements(t *testing.T) {
 		return nil
 	}
 
-	queue := Queue{
-		cacheAddress:   localCacheAddress,
-		identifier:     testIdentifier,
-		delay:          2 * int64(time.Second),
-		callback:       &queueCallback,
-		cancelCallback: nil,
-	}
+	queue := NewQueue(
+		localCacheAddress,
+		testIdentifier,
+		2*int64(time.Second),
+		&queueCallback,
+	)
 
 	// add queues
 	index := 5
@@ -133,13 +154,12 @@ func TestQueueCallbackIncrementsWithDelay(t *testing.T) {
 		return nil
 	}
 
-	queue := Queue{
-		cacheAddress:   localCacheAddress,
-		identifier:     testIdentifier,
-		delay:          5 * int64(time.Second),
-		callback:       &queueCallback,
-		cancelCallback: nil,
-	}
+	queue := NewQueue(
+		localCacheAddress,
+		testIdentifier,
+		5*int64(time.Second),
+		&queueCallback,
+	)
 
 	// add queues
 	preIndex := 5

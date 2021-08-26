@@ -98,3 +98,20 @@ func (q *Queue) Run() error {
 
 	return nil
 }
+
+func NewQueue(
+	cacheAddress string,
+	identifier string,
+	delay int64,
+	queueCallback *QueueCallback,
+) *Queue {
+	queue := Queue{
+		cacheAddress:   cacheAddress,
+		identifier:     identifier,
+		delay:          delay,
+		callback:       queueCallback,
+		cancelCallback: nil,
+	}
+
+	return &queue
+}
